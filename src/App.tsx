@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 
-import "./App.css";
 import "antd/dist/antd.css";
 
-import { AuthPage } from "./components";
 import { fetchGetMe } from "./store/ducks/user/actionCreators";
 import { selectFetchGetMeLoadingStatus } from "./store/ducks/user/selector";
 import { LoadingStatus } from "./store/types";
-import Preloader from "./components/Preloader";
+import { Preloader } from "./components";
+import { AuthPage, Home } from "./pages";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -32,6 +31,7 @@ const App = () => {
     <div>
       <Switch>
         <Route path="/auth" component={AuthPage} />
+        <Route path="/" component={Home} />
       </Switch>
     </div>
   );

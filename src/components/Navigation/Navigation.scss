@@ -1,0 +1,24 @@
+.navigation {
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    a {
+      display: block;
+      color: rgba(#fff, 0.8);
+      width: 100%;
+      padding: 10px 0 10px 20px;
+
+      &:hover,
+      &.active {
+        background: #3b3e46;
+      }
+
+      &.active {
+        cursor: auto;
+      }
+    }
+  }
+}

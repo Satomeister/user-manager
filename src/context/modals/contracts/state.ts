@@ -1,0 +1,5 @@
+export enum ModalsTypes {
+  CREATE_PROFILE = "CREATE_PROFILE",
+  EDIT_USER = "EDIT_USER",
+  EDIT_PROFILE = "EDIT_PROFILE",
+}

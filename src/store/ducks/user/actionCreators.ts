@@ -7,7 +7,7 @@ import {
 } from "./contracts/actionTypes";
 import { LoadingStatus } from "../../types";
 
-export const SetUserData = (payload: User): SetUserDataAction => ({
+export const setUserData = (payload: User | null): SetUserDataAction => ({
   type: UserActionTypes.SET_USER_DATA,
   payload,
 });

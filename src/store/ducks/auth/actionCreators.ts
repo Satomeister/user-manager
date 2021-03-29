@@ -52,7 +52,7 @@ export const setFetchSignupError = (
   payload,
 });
 
-export const FetchLogout = (): FetchLogoutAction => ({
+export const fetchLogout = (): FetchLogoutAction => ({
   type: AuthActionTypes.FETCH_LOGOUT,
 });
 

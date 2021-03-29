@@ -1,25 +1,40 @@
 import React, { FC } from "react";
-import { Alert, Button, Form, Input } from "antd";
-import { Link, Redirect } from "react-router-dom";
-import { fetchSignup } from "../../../store/ducks/auth/actionCreators";
 import { useDispatch, useSelector } from "react-redux";
-import { selectFetchSignupError } from "../../../store/ducks/auth/selector";
+import { Link, Redirect } from "react-router-dom";
+import { Alert, Button, Form, Input, Radio } from "antd";
+
+import { fetchSignup } from "../../../store/ducks/auth/actionCreators";
+import {
+  selectFetchSignupError,
+  selectFetchSignupLoadingStatus,
+} from "../../../store/ducks/auth/selector";
 import { selectIsAuth } from "../../../store/ducks/user/selector";
+import { LoadingStatus } from "../../../store/types";
 
 interface SignupValuesState {
+  fullname: string;
   email: string;
   password: string;
   confirm: string;
+  isAdmin: boolean;
 }
 
 const SignUp: FC = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const fetchSignupError = useSelector(selectFetchSignupError);
+  const fetchSignupLoadingStatus = useSelector(selectFetchSignupLoadingStatus);
   const isAuth = useSelector(selectIsAuth);
 
   const handleFinish = (values: SignupValuesState) => {
-    dispatch(fetchSignup({ email: values.email, password: values.password }));
+    dispatch(
+      fetchSignup({
+        email: values.email,
+        password: values.password,
+        fullname: values.fullname,
+        isAdmin: values.isAdmin,
+      })
+    );
   };
 
   if (isAuth) {
@@ -33,6 +48,12 @@ const SignUp: FC = (): JSX.Element => {
         <Alert className="error-text" message={fetchSignupError} type="error" />
       )}
       <Form onFinish={handleFinish}>
+        <Form.Item
+          name="fullname"
+          rules={[{ required: true, message: "Full name is required" }]}
+        >
+          <Input placeholder="Full Name" />
+        </Form.Item>
         <Form.Item
           name="email"
           rules={[{ required: true, message: "Email is required" }]}
@@ -64,8 +85,19 @@ const SignUp: FC = (): JSX.Element => {
         >
           <Input type="password" placeholder="Confirm Password" />
         </Form.Item>
+        <Form.Item name="isAdmin">
+          <Radio.Group>
+            <Radio value={false}>member</Radio>
+            <Radio value={true}>admin</Radio>
+          </Radio.Group>
+        </Form.Item>
         <Form.Item>
-          <Button className="submit-button" type="primary" htmlType="submit">
+          <Button
+            disabled={fetchSignupLoadingStatus === LoadingStatus.LOADING}
+            className="submit-button"
+            type="primary"
+            htmlType="submit"
+          >
             Sign Up
           </Button>
           Or <Link to="/auth/login">Login</Link>

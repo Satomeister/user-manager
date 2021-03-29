@@ -4,6 +4,8 @@ export interface FetchLoginPayload {
 }
 
 export interface FetchSignupPayload {
+  fullname: string;
   email: string;
   password: string;
+  isAdmin: boolean;
 }
