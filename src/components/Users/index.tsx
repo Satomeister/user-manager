@@ -70,8 +70,8 @@ const Users: FC = (): JSX.Element => {
   const totalUsersCount = useSelector(selectTotalUsersCount);
 
   useEffect(() => {
-    document.title = `Users page ${currentPage}`
-  }, [currentPage])
+    document.title = `Users page ${currentPage}`;
+  }, [currentPage]);
 
   useEffect(() => {
     dispatch(fetchGetTotalUsersCount());
@@ -135,7 +135,7 @@ const Users: FC = (): JSX.Element => {
           pagination={{
             current: currentPage,
             pageSize: PAGE_SIZE,
-            total: totalUsersCount,
+            total: totalUsersCount - 1,
             position: ["bottomCenter"],
           }}
           onChange={handleTableChange}
